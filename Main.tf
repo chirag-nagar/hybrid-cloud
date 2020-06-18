@@ -1,12 +1,11 @@
 provider "aws" {
   region  = "ap-south-1"
-  profile =  "chirag"
+  profile =  "##################"
 }
 
 resource "aws_security_group" "tasksg" {
  name      = "mytask1_security_group"
- description = "task1 security group"
-// vpc_id      = vpc-0c632bf88df9afb11
+ description = "task1 security group
 
  ingress { 
    from_port    = 80
@@ -35,13 +34,13 @@ resource "aws_security_group" "tasksg" {
 resource "aws_instance" "taskos" {
   ami           = "ami-0447a12f28fddb066"
   instance_type = "t2.micro"
-  key_name = "my_key"
+  key_name = "####################"
   security_groups = [ "mytask1_security_group" ]
 
 connection {
     type     = "ssh"
     user     = "ec2-user"
-    private_key = file("C:/Users/CHIRAG/Downloads/my_key.pem")
+    private_key = file("##############################")
     host     = aws_instance.taskos.public_ip
   }
 
@@ -84,7 +83,7 @@ depends_on = [
  connection {
     type     = "ssh"
     user     = "ec2-user"
-    private_key = file("C:/Users/CHIRAG/Downloads/my_key.pem")
+    private_key = file("###############")
     host     = aws_instance.taskos.public_ip
   }
 
@@ -100,7 +99,7 @@ provisioner "remote-exec" {
 
 
 resource "aws_s3_bucket" "mys3" {
-  bucket = "chirag887567"
+  bucket = "###############"
   acl    = "public-read"
 
   versioning {
@@ -112,7 +111,7 @@ resource "aws_s3_bucket" "mys3" {
   }
 }
 resource "aws_s3_bucket_object" "file_upload" {
-  bucket = "chirag887567"
+  bucket = "#############"
   key    = "vimalsir.png"
   source = "file(C:/Users/CHIRAG/Pictures/Screenshots/vimalsir.png)"
   acl = "public-read"
@@ -122,8 +121,8 @@ resource "aws_s3_bucket_object" "file_upload" {
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = "chirag887567.s3.amazonaws.com"
-    origin_id   = "S3-chirag887567"
+    domain_name = "###############.s3.amazonaws.com"
+    origin_id   = "S3-################"
 
   }
 
@@ -133,13 +132,13 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   logging_config {
     include_cookies = false
-    bucket          = "chirag887567.s3.amazonaws.com"
+    bucket          = "#################.s3.amazonaws.com"
   }
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "S3-chirag887567"
+    target_origin_id = "S3-################"
 
     forwarded_values {
       query_string = false
@@ -160,7 +159,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     path_pattern     = "/content/immutable/*"
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id = "S3-chirag887567"
+    target_origin_id = "S3-################"
 
     forwarded_values {
       query_string = false
@@ -183,7 +182,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     path_pattern     = "/content/*"
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "S3-chirag887567"
+    target_origin_id = "S3-##################"
 
     forwarded_values {
       query_string = false
